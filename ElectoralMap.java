@@ -20,7 +20,7 @@ public class ElectoralMap
         double[] xCoords;
         double[] yCoords;
         int[] votes;
-        private subRegion(String nameRegion, double[] xCoord, double[] yCoord, Color colorName, int[] voteArray)
+        public subRegion(String nameRegion, double[] xCoord, double[] yCoord, Color colorName, int[] voteArray)
         {
             String name = nameRegion;
             xCoords = xCoord;

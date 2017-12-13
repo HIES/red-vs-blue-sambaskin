@@ -34,7 +34,7 @@ public class EmptyMap
         int xSize = (int) (dub2[0] - dub1[0]);
         int ySize = (int) (dub2[1] - dub1[1]);
         int size = 0;
-       
+
         StdDraw.setCanvasSize(512*(xSize/ySize), 512);
         StdDraw.setXscale(dub1[0], dub2[0]);
         StdDraw.setYscale(dub1[1], dub2[1]); 
@@ -42,20 +42,38 @@ public class EmptyMap
         StdDraw.circle(500, 500, 2000);
         StdDraw.point(500, 500);
         int i = 0;
+        boolean isFirst = true;
         while(inputObject.hasNextLine())
         {
             double[] xCoords = new double[size];
             double[] yCoords = new double[size];
             String[] tempArr = inputObject.nextLine().split("   ");
-            
+
             if(tempArr.length > 1)
             {
                 //TO DO: define size at some point
-                if(count > 0)
+                if(isFirst == true)
                 {
-                    px = x;
-                    py = y;
-                    
+                    inputObject.nextLine();
+                    inputObject.nextLine();
+                    inputObject.nextLine();
+ 
+                    System.out.println(size);
+                    StdDraw.polygon(xCoords, yCoords);
+                    xCoords = new double[size];
+                    yCoords = new double[size];
+
+                    //x = Double.parseDouble(tempArr[0]);
+                    //y = Double.parseDouble(tempArr[1]);
+                    //StdDraw.line(x, y, x, y);   
+
+                    isFirst = false;   
+                }
+                else
+                {
+                  //  px = x;
+                  //  py = y;
+                                        System.out.println(size);
                     x = Double.parseDouble(tempArr[0]);
                     y = Double.parseDouble(tempArr[1]);
                     xCoords[i] = x;
@@ -64,35 +82,19 @@ public class EmptyMap
                     System.out.println("B");
                     //StdDraw.line(px, py, x, y);
                 }
-                else
-                {
-                 xCoords = new double[size];
-                 yCoords = new double[size];
-                 
-                 x = Double.parseDouble(tempArr[0]);
-                 y = Double.parseDouble(tempArr[1]);
-                 //StdDraw.line(x, y, x, y);   
-                 
-                 count++;   
-                }
+                
             }
-            else
-            {
-                inputObject.nextLine();
-                inputObject.nextLine();
+
             
-                size = Integer.parseInt(inputObject.nextLine());
-            }
-                count = 0;
-                System.out.println("A");
-                StdDraw.setPenColor(StdDraw.BLACK);
-                StdDraw.polygon(xCoords, yCoords);
-                StdDraw.show();
-            }
+            
+            System.out.println("A");
+            //StdDraw.setPenColor(StdDraw.BLACK);
+           // StdDraw.polygon(xCoords, yCoords);
+            StdDraw.show();
+        }
 
         StdDraw.show();
         inputObject.close();
 
-        
     }
-    }
+}
