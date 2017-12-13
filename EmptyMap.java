@@ -43,54 +43,38 @@ public class EmptyMap
         StdDraw.point(500, 500);
         int i = 0;
         boolean isFirst = true;
+        //inputObject.nextLine();
+        double[] xCoords;
+        double[] yCoords;
         while(inputObject.hasNextLine())
         {
-            double[] xCoords = new double[size];
-            double[] yCoords = new double[size];
-            String[] tempArr = inputObject.nextLine().split("   ");
+            
 
-            if(tempArr.length > 1)
+            //TO DO: define size at some point
+            //While loop witht the number of coordinates, not a flag. Know where scanner is at all time
+            //while has next line
+            inputObject.nextLine();
+            inputObject.nextLine();
+            inputObject.nextLine();
+            size = Integer.parseInt(inputObject.nextLine());
+            count = 0;
+            xCoords = new double[size];
+            yCoords = new double[size];
+            //String[] tempArr = inputObject.nextLine().split("   ");
+
+            
+            while(count < size)
             {
-                //TO DO: define size at some point
-                if(isFirst == true)
-                {
-                    inputObject.nextLine();
-                    inputObject.nextLine();
-                    inputObject.nextLine();
- 
-                    System.out.println(size);
-                    StdDraw.polygon(xCoords, yCoords);
-                    xCoords = new double[size];
-                    yCoords = new double[size];
-
-                    //x = Double.parseDouble(tempArr[0]);
-                    //y = Double.parseDouble(tempArr[1]);
-                    //StdDraw.line(x, y, x, y);   
-
-                    isFirst = false;   
-                }
-                else
-                {
-                  //  px = x;
-                  //  py = y;
-                                        System.out.println(size);
-                    x = Double.parseDouble(tempArr[0]);
-                    y = Double.parseDouble(tempArr[1]);
-                    xCoords[i] = x;
-                    yCoords[i] = y;
-                    i++;
-                    System.out.println("B");
-                    //StdDraw.line(px, py, x, y);
-                }
-                
+               String[] tempArr = inputObject.nextLine().split("   ");
+               x = Double.parseDouble(tempArr[0]);
+               y = Double.parseDouble(tempArr[1]);
+               xCoords[count] = x;
+               yCoords[count] = y;
+               count++;
+               
             }
+            StdDraw.polygon(xCoords, yCoords);
 
-            
-            
-            System.out.println("A");
-            //StdDraw.setPenColor(StdDraw.BLACK);
-           // StdDraw.polygon(xCoords, yCoords);
-            StdDraw.show();
         }
 
         StdDraw.show();
