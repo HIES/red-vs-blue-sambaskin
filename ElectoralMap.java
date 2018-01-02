@@ -12,7 +12,7 @@ public class ElectoralMap
 {   
     private static HashMap<String, ArrayList<SubRegion>> regions = new HashMap<>();   
 
-    private static class SubRegion
+    public static class SubRegion
     {
 
         private String name;
@@ -40,12 +40,7 @@ public class ElectoralMap
         }
 
     }
-    public static void main(String regionName, String year) throws Exception
-    {
-        getGeoData(regionName);
-        votingFill(regionName+year);
-        draw();
-    }
+    
 
     public static void votingFill(String regionNameYear) throws Exception
     {
@@ -173,14 +168,7 @@ public class ElectoralMap
 
             if(regions.containsKey(subRegionName)) //IF THE KEY ALREADY EXISTS
             {
-                    //if(regions.get(subRegionName).size() > 1) //If the array list has multiple values then you do all this
-                    //{
-                       // ArrayList<SubRegion> origList = regions.get(subRegionName);
-                       // tempList.add(origList.get(regions.get(subRegionName).size() - 1));  //Add to templist
-                        regions.get(subRegionName).add(tempRegion);
-
-                    //}
-
+                    regions.get(subRegionName).add(tempRegion);
                     regions.put(subRegionName, regions.get(subRegionName));
             }
                 else    //If the arrayList only has one value 
@@ -216,6 +204,13 @@ public class ElectoralMap
         
         StdDraw.show();
 
+    }
+    
+    public static void main(String regionName, String year) throws Exception
+    {
+        getGeoData(regionName);
+        votingFill(regionName+year);
+        draw();
     }
 
 }
