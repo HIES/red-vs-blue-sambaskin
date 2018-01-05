@@ -177,7 +177,7 @@ public class ElectoralMap
                 {
                     removeIndex = subRegionName.indexOf("Parish");
                 }
-                subRegionName = subRegionName.substring(removeIndex-1);
+                subRegionName = subRegionName.substring(0, removeIndex-1);
             }
             count = 0;
             xCoords = new double[size];
