@@ -10,10 +10,7 @@ import java.util.*;
 
 public class BlendedAmerica
 {   
-    //Outer dude. Find GA
-    //Just get county voting data, don't even need subregions.
-    //
-    //private static HashMap<String, ArrayList<SubRegion>> regions = new HashMap<>();   
+  
     private static HashMap<String, HashMap<String, ArrayList<SubRegion>>> usa = new HashMap<>();
     public static class SubRegion
     {
@@ -64,12 +61,7 @@ public class BlendedAmerica
                 regionVotes[0] = Integer.parseInt(stringVotes[1]); //Republican
                 regionVotes[1] = Integer.parseInt(stringVotes[2]); //Democrat
                 regionVotes[2] = Integer.parseInt(stringVotes[3]); //Independent
-
-                // System.out.println("VotingFill: " + regions.keySet()); 
-
-                //ArrayList<SubRegion> tempList = regions.get(stringVotes[0]);
-                //System.out.println("DEBUG");
-                //System.out.println(usa.get(state));
+                
                 System.out.println(stringVotes[0]);
                 System.out.println(state);
 
@@ -83,9 +75,7 @@ public class BlendedAmerica
                     int bV = (int) (255.0*(regionVotes[1]*1.0/totV));
                     int gV = (int) (255.0*(regionVotes[2]*1.0/totV));
                     Color tempCol = new Color(rV, gV, bV);
-                    //5000  1800  70
-                    // .73  .26   0.01
-                    //186.5  66.3  2.55
+
                     for(int i = 0; i < tempList.size(); i++)
                     {
                         tempList.get(i).changeColor(tempCol);
@@ -139,8 +129,6 @@ public class BlendedAmerica
         int subCount = 0;
         while(inputObject.hasNextLine() && subCount < totSub) //While the end of the file hasn't been reached
         {
-            //DISCARD PARISH OR CITY OR COUNTY FROM SUBANME. CONDITIONAL GOES HERE
-
             ArrayList<SubRegion> subregions = new ArrayList<>();   
 
             inputObject.nextLine();
@@ -164,7 +152,7 @@ public class BlendedAmerica
                 {
                     removeIndex = subRegionName.indexOf("Parish");
                 }
-                subRegionName = subRegionName.substring(removeIndex-1);
+                subRegionName = subRegionName.substring(0, removeIndex-1);
             }
             count = 0;
             xCoords = new double[size];
@@ -211,22 +199,6 @@ public class BlendedAmerica
                 usa.put(outerRegionName, innerMap);
             }
 
-            /*if(usa.containsKey(outerRegionName))
-            {
-            //usa.get(STATE).get(COUNTY)
-            if(usa.get(outerRegionName).containsKey(subRegionName))
-            {
-            usa.get(outerRegionName).get(subRegionName).add(tempRegion);
-            //COllection of states - Collection of counties- 
-            }
-            else
-            {
-            usa.get(outerRegionName).add(//Fulton)
-            //Hashmap <string, arraylist>
-            }
-            //put(tempOuterRegion);
-            }
-             */
         }
 
         StdDraw.show();
@@ -238,17 +210,12 @@ public class BlendedAmerica
     {
 
         for(String state : usa.keySet()){ //State 
-            //votingFill(state.name, year);
             for(String county : usa.get(state).keySet()) //County
             {
-                //  votingFill(county.name, year);
                 for(SubRegion c : usa.get(state).get(county))
                 {
-                    //Each county has a color already. Here we just cycle through counties
                     double[] tempXCoords = c.xCoords;
                     double[] tempYCoords = c.yCoords;
-                    //Get state w/ same name + year
-                    //votingFill(c.name, year);
                     Color tempCol = c.col;
                     StdDraw.setPenColor(tempCol);
                     StdDraw.filledPolygon(tempXCoords, tempYCoords);
@@ -265,24 +232,11 @@ public class BlendedAmerica
 
     public static void main(String regionName, String year) throws Exception
     {
-        //regionName = usa-county
-        //HashMap usa = [usa-county geoData]
-        //getGeoData("HOW DO WE GET STATE FOR THIS?" GET THE NAME OF IT IN THE OTHER GEODATA SO IT CALLS THE "GA" ONCE IT SEES IT
-        //maybe like a for loop to go through all the stuff for votingFill and whatnot lol
-        //votingFill(
-        //usa.get(STATE).get(COUNTY)
+
         getGeoData(regionName);
         votingFill(year);
         draw(year);
-        //Have everything below the hashmap already set. Just need to be able to get subRegions
-
-        //Fill GeoData for usa (GA) and create hashmap  usa.get(STATE)
-        //That's the region hashmap. Just put that in.
-        //Find voting data  usa.get(GA).get(Fulton) = arrayList (cycle through arrayList and fill each with the color)
-
-        //Modifiyng in the geoData to get GA and FULTON GA goes into the USA hashmap and FULTON goes into the GA hashmap
-        //we're ignoring states and GA rn. Change it so we do the same as county but with a new thang ;) <3l
-
+        
     }
 
 }
