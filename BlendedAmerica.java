@@ -10,7 +10,7 @@ import java.util.*;
 
 public class BlendedAmerica
 {   
-  
+
     private static HashMap<String, HashMap<String, ArrayList<SubRegion>>> usa = new HashMap<>();
     public static class SubRegion
     {
@@ -61,15 +61,15 @@ public class BlendedAmerica
                 regionVotes[0] = Integer.parseInt(stringVotes[1]); //Republican
                 regionVotes[1] = Integer.parseInt(stringVotes[2]); //Democrat
                 regionVotes[2] = Integer.parseInt(stringVotes[3]); //Independent
-                
-                System.out.println(stringVotes[0]);
-                System.out.println(state);
+
+                //System.out.println(stringVotes[0]);
+               // System.out.println(state);
 
                 if(usa.get(state).containsKey(stringVotes[0]))
                 {
                     ArrayList<SubRegion> tempList = usa.get(state).get(stringVotes[0]);   
 
-                    System.out.println(tempList);
+                    //System.out.println(tempList);
                     double totV = regionVotes[0] + regionVotes[1] + regionVotes[2]; 
                     int rV = (int) (255.0*(regionVotes[0]*1.0/totV));
                     int bV = (int) (255.0*(regionVotes[1]*1.0/totV));
@@ -81,7 +81,6 @@ public class BlendedAmerica
                         tempList.get(i).changeColor(tempCol);
                     }
 
-                
                 }
             }
         }
@@ -101,7 +100,6 @@ public class BlendedAmerica
         StdDraw.enableDoubleBuffering();
         double[] dub1 = new double[2];
         double[] dub2 = new double[2];
-
         firstLine = line.split("   ");
         secondLine = line2.split("   ");
         int count = 0;
@@ -113,28 +111,23 @@ public class BlendedAmerica
             dub1[z] = Double.parseDouble(firstLine[z]);
             dub2[z] = Double.parseDouble(secondLine[z]);
         }
-
         int xSize = (int) (dub2[0] - dub1[0]);
         int ySize = (int) (dub2[1] - dub1[1]);
         int size = 0;
         StdDraw.setCanvasSize(512*(xSize/ySize), 512);
         StdDraw.setXscale(dub1[0], dub2[0]);
         StdDraw.setYscale(dub1[1], dub2[1]);
-
         int i = 0;
         boolean isFirst = true;
-
         double[] xCoords;
         double[] yCoords;
         int subCount = 0;
         while(inputObject.hasNextLine() && subCount < totSub) //While the end of the file hasn't been reached
         {
             ArrayList<SubRegion> subregions = new ArrayList<>();   
-
             inputObject.nextLine();
             String subRegionName = inputObject.nextLine(); 
-            System.out.println("GeoData:"+ subRegionName);
-
+            //System.out.println("GeoData:"+ subRegionName);
             String outerRegionName = inputObject.nextLine();
             size = Integer.parseInt(inputObject.nextLine());
             if(subRegionName.contains("city") || subRegionName.contains("county") || subRegionName.contains("Parish"))
@@ -169,7 +162,6 @@ public class BlendedAmerica
 
             }
             subCount++;
-
             SubRegion tempRegion = new SubRegion(subRegionName, xCoords, yCoords); //CREATE SUBREGION
             SubRegion tempOuterRegion = new SubRegion(outerRegionName,xCoords, yCoords); 
             if(usa.containsKey(outerRegionName))
@@ -177,7 +169,6 @@ public class BlendedAmerica
                 if(usa.get(outerRegionName).containsKey(subRegionName)) //IF THE KEY ALREADY EXISTS
                 {
                     usa.get(outerRegionName).get(subRegionName).add(tempRegion);
-                    //regions.get(subRegionName).add(tempRegion);
                     usa.get(outerRegionName).put(subRegionName, usa.get(outerRegionName).get(subRegionName));
 
                 }
@@ -200,15 +191,12 @@ public class BlendedAmerica
             }
 
         }
-
         StdDraw.show();
         inputObject.close();
-
     }
 
     public static void draw(String year) throws Exception
     {
-
         for(String state : usa.keySet()){ //State 
             for(String county : usa.get(state).keySet()) //County
             {
@@ -220,23 +208,18 @@ public class BlendedAmerica
                     StdDraw.setPenColor(tempCol);
                     StdDraw.filledPolygon(tempXCoords, tempYCoords);
                     StdDraw.setPenColor(StdDraw.BLACK); 
-                    System.out.println("Drawing: " + county); 
                 }
-
             }
         }          
-
         StdDraw.show();
-
     }
 
     public static void main(String regionName, String year) throws Exception
     {
-
         getGeoData(regionName);
         votingFill(year);
         draw(year);
-        
     }
 
-}
+    }
+
