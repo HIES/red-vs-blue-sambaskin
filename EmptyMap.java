@@ -43,40 +43,32 @@ public class EmptyMap
         StdDraw.point(500, 500);
         int i = 0;
         boolean isFirst = true;
-        //inputObject.nextLine();
         double[] xCoords;
         double[] yCoords;
         while(inputObject.hasNextLine())
         {
-            
-
-            //TO DO: define size at some point
-            //While loop witht the number of coordinates, not a flag. Know where scanner is at all time
-            //while has next line
             inputObject.nextLine();
-            inputObject.nextLine();
-            inputObject.nextLine();
-            size = Integer.parseInt(inputObject.nextLine());
-            count = 0;
-            xCoords = new double[size];
-            yCoords = new double[size];
-            //String[] tempArr = inputObject.nextLine().split("   ");
-
-            
-            while(count < size)
+            if(inputObject.hasNextLine()) //handles the very end of the file since there are two final blank lines 
             {
-               String[] tempArr = inputObject.nextLine().split("   ");
-               x = Double.parseDouble(tempArr[0]);
-               y = Double.parseDouble(tempArr[1]);
-               xCoords[count] = x;
-               yCoords[count] = y;
-               count++;
-               
+                inputObject.nextLine();
+                inputObject.nextLine();
+                size = Integer.parseInt(inputObject.nextLine());
+                count = 0;
+                xCoords = new double[size];
+                yCoords = new double[size];
+                while(count < size)
+                {
+                    String[] tempArr = inputObject.nextLine().split("   ");
+                    x = Double.parseDouble(tempArr[0]);
+                    y = Double.parseDouble(tempArr[1]);
+                    xCoords[count] = x;
+                    yCoords[count] = y;
+                    count++;
+
+                }
+                StdDraw.polygon(xCoords, yCoords);
             }
-            StdDraw.polygon(xCoords, yCoords);
-
         }
-
         StdDraw.show();
         inputObject.close();
 
